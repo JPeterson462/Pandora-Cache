@@ -77,12 +77,17 @@ public class PandoraCache {
 	}
 	
 	private void downloadFile(String url, String output) throws IOException {
+		output = cleanPath(output);
 		System.out.println("Downloading: " + url + "...");
 		ReadableByteChannel channel = Channels.newChannel(new URL(url).openStream());
 		FileOutputStream outputStream = new FileOutputStream(output);
 		outputStream.getChannel().transferFrom(channel, 0, Long.MAX_VALUE);
 		outputStream.close();
 		System.out.println("Saved to: " + output);
+	}
+	
+	private String cleanPath(String path) {
+		return path.replaceAll("&", "and");
 	}
 
 }
